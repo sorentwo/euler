@@ -4,7 +4,7 @@ defmodule Triangle do
   end
 
   def row_to_integers(row) do
-    String.strip(row) |> String.split(" ") |> Enum.map(&binary_to_integer/1)
+    String.strip(row) |> String.split(" ") |> Enum.map(&String.to_integer/1)
   end
 
   def collapse([value]), do: value

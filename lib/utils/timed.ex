@@ -1,5 +1,5 @@
 defmodule Timed do
-  def inspect(module, fun, args // []) do
+  def inspect(module, fun, args \\ []) do
     begin  = :os.timestamp
     answer = apply(module, fun, args)
     finish = :os.timestamp
