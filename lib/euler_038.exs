@@ -1,7 +1,4 @@
 defmodule EulerThirtyEight do
-  import NumHelper
-  import EnumHelper
-
   @moduledoc """
   Pandigital multiples
 
@@ -20,19 +17,26 @@ defmodule EulerThirtyEight do
   What is the largest 1 to 9 pandigital 9-digit number that can be formed as the
   concatenated product of an integer with (1,2, ... , n) where n > 1?
   """
+
   def solve do
-    conprod?([9,1,8,2,7,3,6,4,5], 5, 2)
-    # Enum.filter(pandigitals, fn([head | _]) -> head == 9 end)
-    #   |> Enum.sort
-    #   |> Enum.reverse
-    #   |> Enum.find(&conprod?/1)
+    9876..9
+    |> Enum.map(&pandigitize/1)
+    |> Enum.filter fn({_, x}) -> x != nil && is_pandigital?(x) end
   end
 
-  def pandigitals do
-    perms([1,2,3,4,5,6,7,8,9])
+  defp is_pandigital?(int) when is_integer(int) do
+    is_pandigital?(int |> Integer.to_char_list)
+  end
+  defp is_pandigital?(list) when is_list(list) do
+    length(list) == length(Enum.uniq(list))
   end
 
-  def to_dig(list), do: Enum.join(list) |> binary_to_integer
+  defp pandigitize(m), do: pandigitize({m,''}, 1)
+  defp pandigitize({m, acc}, _) when length(acc) == 9, do: {m, acc}
+  defp pandigitize({m, acc}, _) when length(acc) >= 10, do: {m, nil}
+  defp pandigitize({m, acc}, n) when length(acc) < 10 do
+    pandigitize({m, acc ++ Integer.to_char_list(m * n)}, n + 1)
+  end
 end
 
 IO.inspect EulerThirtyEight.solve
