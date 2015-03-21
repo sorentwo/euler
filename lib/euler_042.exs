@@ -51,4 +51,4 @@ defmodule EulerFortyTwo do
   defp is_triangle?(triangles, value), do: value in triangles
 end
 
-IO.puts inspect(EulerFortyTwo.solve)
+IO.puts EulerFortyTwo.solve
