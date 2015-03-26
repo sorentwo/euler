@@ -3,12 +3,10 @@ defmodule IntMath do
 
   def pow(_, 0), do: 1
   def pow(a, 1), do: a
-
   def pow(a, n) when band(n, 1) === 0 do
     tmp = pow(a, n >>> 1)
     tmp * tmp
   end
-
   def pow(a, n) do
     a * pow(a, n - 1)
   end
